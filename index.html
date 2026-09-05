@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madhusudhanan — Data & Full-Stack Portfolio</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-raised: #141b24;
+            --line: #22303f;
+            --text: #e7edf3;
+            --text-dim: #8b98a8;
+            --signal: #5fd9a4;
+            --signal-dim: #2e6b52;
+            --amber: #f2b84b;
+            --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+            --sans: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        a {
+            color: inherit;
+        }
+
+        ::selection {
+            background: var(--signal-dim);
+            color: #fff;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--signal);
+            outline-offset: 3px;
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        /* ---------- Nav ---------- */
+        header.nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(13, 17, 23, 0.86);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 16px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-mark {
+            font-family: var(--mono);
+            font-size: 14px;
+            color: var(--signal);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 22px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dim);
+            transition: color 0.15s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 88px 0 64px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hero-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--signal);
+            margin-bottom: 28px;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--signal);
+            box-shadow: 0 0 0 0 rgba(95, 217, 164, 0.6);
+            animation: pulse 2.4s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(95, 217, 164, 0.5);
+            }
+
+            70% {
+                box-shadow: 0 0 0 8px rgba(95, 217, 164, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(95, 217, 164, 0);
+            }
+        }
+
+        h1 {
+            font-size: 44px;
+            line-height: 1.15;
+            margin: 0 0 14px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .hero p.role {
+            font-size: 18px;
+            color: var(--text-dim);
+            margin: 0 0 30px;
+            max-width: 46ch;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .hero-meta span {
+            color: var(--text);
+        }
+
+        .cta-row {
+            display: flex;
+            gap: 14px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+        }
+
+        .btn-primary {
+            background: var(--signal);
+            color: #06251b;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            background: #78e4b6;
+        }
+
+        .btn-ghost {
+            border: 1px solid var(--line);
+            color: var(--text);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--signal-dim);
+            transform: translateY(-1px);
+        }
+
+        /* ---------- Section shared ---------- */
+        section {
+            padding: 64px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 32px;
+        }
+
+        .section-head h2 {
+            font-size: 22px;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .section-num {
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        /* ---------- About ---------- */
+        .about p {
+            color: var(--text-dim);
+            max-width: 62ch;
+            font-size: 16px;
+        }
+
+        .about p+p {
+            margin-top: 16px;
+        }
+
+        .skills-grid {
+            margin-top: 28px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px 32px;
+        }
+
+        .skill-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            font-size: 14px;
+        }
+
+        .skill-row .name {
+            color: var(--text);
+        }
+
+        .skill-row .tag {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-dim);
+        }
+
+        /* ---------- Projects (log style) ---------- */
+        .project {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--line);
+            display: grid;
+            grid-template-columns: 96px 1fr;
+            gap: 20px;
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-tag {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+            padding-top: 3px;
+        }
+
+        .project-tag.flagship {
+            color: var(--amber);
+        }
+
+        .project h3 {
+            margin: 0 0 8px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .project p {
+            margin: 0 0 12px;
+            color: var(--text-dim);
+            font-size: 14.5px;
+            max-width: 58ch;
+        }
+
+        .stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .stack span {
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--signal);
+            background: rgba(95, 217, 164, 0.08);
+            border: 1px solid var(--signal-dim);
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* ---------- Contact ---------- */
+        .contact p {
+            color: var(--text-dim);
+            max-width: 50ch;
+            margin: 0 0 28px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .contact-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--line);
+            text-decoration: none;
+            color: var(--text);
+            font-size: 15px;
+            transition: padding-left 0.15s ease, color 0.15s ease;
+        }
+
+        .contact-link:hover {
+            padding-left: 6px;
+            color: var(--signal);
+        }
+
+        .contact-link .via {
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        footer {
+            padding: 32px 0 48px;
+            font-family: var(--mono);
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 32px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+
+            .hero {
+                padding: 64px 0 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="nav-mark" href="#top">maddyyy.dev</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="wrap" id="top">
+
+        <section class="hero">
+            <div class="hero-status"><span class="dot"></span> available for opportunities</div>
+            <h1>Madhusudhanan — turns raw data into clear answers, and interfaces into experiences people enjoy using.
+            </h1>
+            <p class="role">Computer science student working across data analysis and UI/UX development — reading what a
+                dataset is trying to say, then designing an interface that says it clearly.</p>
+            <div class="hero-meta">
+                <div>Based in <span>Coimbatore, India</span></div>
+                <div>Focus <span>Data Analyst · UI/UX Developer</span></div>
+            </div>
+            <div class="cta-row">
+                <a class="btn btn-primary" href="#about">About me</a>
+                <a class="btn btn-ghost" href="#contact">Get in touch</a>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="section-head">
+                <h2>About</h2>
+                <span class="section-num">01</span>
+            </div>
+            <p>I'm a computer science student with a working range across two disciplines that meet more often than
+                people expect: making sense of data, and designing the interface someone actually reads it through.</p>
+            <p>On the data side, that means digging into a dataset to find the trend or pattern that matters, then
+                choosing the chart or view that makes it obvious at a glance. On the design side, it means thinking
+                about layout, hierarchy, and flow — building interfaces that stay out of the way of the person using
+                them.</p>
+
+            <div class="skills-grid">
+                <div class="skill-row"><span class="name">Python</span><span class="tag">data</span></div>
+                <div class="skill-row"><span class="name">JavaScript</span><span class="tag">frontend</span></div>
+                <div class="skill-row"><span class="name">React</span><span class="tag">interface</span></div>
+                <div class="skill-row"><span class="name">Recharts</span><span class="tag">visualization</span></div>
+                <div class="skill-row"><span class="name">SQLite</span><span class="tag">data</span></div>
+                <div class="skill-row"><span class="name">Flask</span><span class="tag">backend</span></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="section-head">
+                <h2>Contact</h2>
+                <span class="section-num">02</span>
+            </div>
+            <p>Open to internships, collaborations, and roles across data analysis and UI/UX development. The fastest
+                way to reach me is email.</p>
+            <div class="contact-links">
+                <a class="contact-link" href="mailto:madhusudhanan1706@gamil.com">
+                    <span>Email</span><span class="via">madhusudhanan1706@gamil.com</span>
+                </a>
+                <a class="contact-link" href="https://github.com/yourusername" target="_blank"
+                    rel="noopener noreferrer">
+                    <span>GitHub</span><span class="via">github.com/yourusername</span>
+                </a>
+                <a class="contact-link" href="https://linkedin.com/in/yourusername" target="_blank"
+                    rel="noopener noreferrer">
+                    <span>LinkedIn</span><span class="via">linkedin.com/in/yourusername</span>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            Built by Madhusudhanan · Coimbatore, India
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
